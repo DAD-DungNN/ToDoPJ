@@ -1,0 +1,9 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+#yarn tsc --noEmit && yarn eslint . && yarn prettier --write .
+# git secrets --scan
+
+yarn tsc --noEmit
+
+yarn lint-staged

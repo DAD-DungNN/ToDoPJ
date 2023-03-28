@@ -1,0 +1,62 @@
+image: docker:20.10.18
+
+services:
+  - name: docker:20.10.18-dind
+    entrypoint: ["env", "-u", "DOCKER_HOST"]
+    command: ["dockerd-entrypoint.sh"]
+
+stages:
+  - build
+  - deploy
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+
+
+# DEVELOP =======================================================================
+# DEV: staff
+build-dev:
+  stage: build
+  only:
+    - release-dev
+  before_script:
+    - apk add --no-cache python3 py3-pip
+    - pip3 install --upgrade pip
+    - pip3 install --no-cache-dir awscli && rm -rf /var/cache/apk/*
+    - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+  script:
+    - mkdir configs
+    - cat ${DEV_CONFIGS_APP_ENV} >> configs/app.ts
+
+    - docker pull $REGISTRY:latest-staff-dev || true
+    - docker build --cache-from $CI_REGISTRY/$CI_REGISTRY_IMAGE:latest-staff-dev --tag $CI_REGISTRY/$CI_REGISTRY_IMAGE:staff-$CI_COMMIT_SHA -f Dockerfile_staff .
+    - docker tag $CI_REGISTRY/$CI_REGISTRY_IMAGE:staff-$CI_COMMIT_SHA $CI_REGISTRY/$CI_REGISTRY_IMAGE:latest-staff-dev
+    - docker push $CI_REGISTRY/$CI_REGISTRY_IMAGE:staff-$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY/$CI_REGISTRY_IMAGE:latest-staff-dev
+
+    - docker pull $REGISTRY:latest-admin-dev || true
+    - docker build --cache-from $CI_REGISTRY/$CI_REGISTRY_IMAGE:latest-admin-dev --tag $CI_REGISTRY/$CI_REGISTRY_IMAGE:admin-$CI_COMMIT_SHA -f Dockerfile_admin .
+    - docker tag $CI_REGISTRY/$CI_REGISTRY_IMAGE:admin-$CI_COMMIT_SHA $CI_REGISTRY/$CI_REGISTRY_IMAGE:latest-admin-dev
+    - docker push $CI_REGISTRY/$CI_REGISTRY_IMAGE:admin-$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY/$CI_REGISTRY_IMAGE:latest-admin-dev
+
+deploy-dev:
+  stage: deploy
+  only:
+    - release-dev
+  variables:
+    GIT_STRATEGY: none
+  before_script:
+    - apk update && apk add openssh-client bash
+  script:
+    - eval $(ssh-agent -s)
+    - bash -c 'ssh-add <(echo "$SSH_PRIVATE_KEY")'
+    - mkdir -p ~/.ssh
+    - ssh-keyscan -H $DEV_SERVER_IP >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+
+    - >
+      ssh $DEV_SSH_USER@$DEV_SERVER_IP
+      "cd $PATH_TO_PROJECT;
+      sh build.sh;"

@@ -1,0 +1,14 @@
+{
+  "title": "CMS",
+  "description": "Manage all your contents accounts in one place",
+  "form": {
+    "title": "Sign In",
+    "email": "Email",
+    "password": "Password1111",
+    "forgotPassword": "Forgot password?",
+    "remember": "Remember",
+    "login": "Login",
+    "register": "Register",
+    "termAndConditional": "By signin up, you agree to our Terms and Conditions & Privacy Policy"
+  }
+}

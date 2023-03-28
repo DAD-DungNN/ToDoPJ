@@ -1,0 +1,8 @@
+node_modules/
+dist/
+logs/
+.git/
+.next/
+out/
+.vscode/
+Dockerfile_company

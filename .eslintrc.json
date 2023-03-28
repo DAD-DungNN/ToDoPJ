@@ -1,0 +1,60 @@
+{
+  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "prettier"],
+  "plugins": ["@typescript-eslint", "simple-import-sort"],
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "project": ["tsconfig.json"]
+      }
+    }
+  },
+  "rules": {
+    "t@typescript-eslint/no-var-requires": "off",
+    "@next/next/no-img-element": "off",
+    "react/self-closing-comp": "error",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "no-console": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "return" },
+      { "blankLine": "always", "prev": "if", "next": "*" },
+      { "blankLine": "any", "prev": "*", "next": "export" },
+      { "blankLine": "always", "prev": "*", "next": "function" },
+      { "blankLine": "always", "prev": ["case", "default"], "next": "*" },
+      { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] },
+      { "blankLine": "always", "prev": "directive", "next": "*" },
+      { "blankLine": "any", "prev": "directive", "next": "directive" }
+    ],
+    "curly": "error",
+    "import/newline-after-import": ["error", { "count": 1 }],
+    "react-hooks/exhaustive-deps": "off",
+    "no-param-reassign": ["error", { "props": false }]
+  },
+  "overrides": [
+    {
+      "files": ["*.tsx", "*.ts"],
+      "excludedFiles": ["**/pages/**/*.tsx", "**/reducers/**/*.ts"],
+      "rules": {
+        "import/no-default-export": "error"
+      }
+    },
+    {
+      "files": ["*.tsx", "*.ts"],
+      "excludedFiles": ["**/antdWatch/**/*.tsx"],
+      "rules": {
+        "react/jsx-no-literals": "warn"
+      }
+    },
+    {
+      "files": ["*.js"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ]
+}
