@@ -1,0 +1,8 @@
+{
+  "locales": ["en", "jp"],
+  "defaultLocale": "jp",
+  "lang": "jp",
+  "pages": {
+    "*": ["common"]
+  }
+}

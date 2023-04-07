@@ -1,0 +1,7 @@
+{
+  "validation": {
+    "invalid": "{{field_name}} is invalid",
+    "is_required": "{{field_name}} is required",
+    "max_length": "{{field_name}} length has reached {{max_length}} characters"
+  }
+}

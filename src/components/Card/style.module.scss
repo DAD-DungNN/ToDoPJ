@@ -1,0 +1,24 @@
+.card {
+  @apply w-[250px] p-5 rounded-3xl;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+
+  &__header {
+    @apply flex justify-between items-center mb-4;
+    &__title {
+      @apply pr-3;
+    }
+
+    &__closeBtn {
+      @apply px-3 py-1;
+    }
+  }
+
+  &__description {
+    @apply text-sm;
+    display: block;
+  }
+
+  &__button {
+    @apply flex justify-end;
+  }
+}

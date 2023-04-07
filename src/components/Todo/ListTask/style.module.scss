@@ -1,0 +1,10 @@
+.listTask {
+  @apply w-[250px];
+  &__title {
+    @apply text-lg;
+  }
+
+  &__list {
+    @apply mt-5;
+  }
+}
