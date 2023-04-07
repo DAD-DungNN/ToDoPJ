@@ -1,0 +1,26 @@
+.button {
+  @apply relative 
+  rounded-full 
+  py-2 
+  px-5 
+  border-none 
+  cursor-pointer 
+  text-white 
+  font-medium 
+  text-sm 
+  overflow-hidden
+  inline-block;
+  transition: 0.3s;
+
+  &:hover {
+    @apply opacity-80;
+  }
+
+  &.secondary {
+    @apply bg-secondary;
+  }
+
+  &.danger {
+    @apply bg-error;
+  }
+}

@@ -14,6 +14,7 @@ Router.events.on('routeChangeStart', nProgress.start);
 Router.events.on('routeChangeError', nProgress.done);
 Router.events.on('routeChangeComplete', nProgress.done);
 
+import Layout from 'components/Layouts';
 import { useMemo } from 'react';
 
 import JPCommon from '../../locales/jp/common.json';
@@ -43,7 +44,9 @@ function App({ Component, pageProps }: any) {
       </Head>
       <I18nProvider lang={'jp'} namespaces={i18nNameSpace} config={i18nConfig}>
         <SWRConfig value={{ refreshInterval: 3000, fetcher: (resource, init) => fetch(resource, init).then((res) => res.json()) }}>
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </SWRConfig>
       </I18nProvider>
     </>

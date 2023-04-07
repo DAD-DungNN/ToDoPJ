@@ -23,6 +23,6 @@
       "types/*": ["types/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.module.scss"],
   "exclude": ["node_modules", ".next", "out"]
 }

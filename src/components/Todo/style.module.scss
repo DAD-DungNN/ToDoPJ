@@ -1,0 +1,19 @@
+.toDo {
+  @apply bg-white w-full max-w-[1200px] mx-auto mt-8 py-4 px-6 rounded-3xl;
+
+  &__header {
+    @apply flex justify-between items-center;
+  }
+
+  &__body {
+    @apply mt-8 flex justify-between;
+
+    &__list {
+      @apply mt-5;
+
+      &__item {
+        @apply py-3;
+      }
+    }
+  }
+}

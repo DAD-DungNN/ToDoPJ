@@ -1,0 +1,35 @@
+.modal {
+  background-color: #0000004f;
+  @apply fixed
+  left-0
+  top-0
+  right-0
+  bottom-0
+  flex
+  items-center
+  justify-center
+  z-50;
+
+  &__container {
+    @apply bg-white
+    w-[400px]
+    rounded-3xl
+    p-3;
+
+    &__header {
+      @apply flex
+      items-center
+      justify-between
+      mb-8;
+
+      &__title {
+        @apply flex-1
+        text-center;
+      }
+    }
+
+    &__body {
+      @apply px-5;
+    }
+  }
+}
